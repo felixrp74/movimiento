@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Prueba3ModelStoreContainer" CdmEntityContainer="Prueba3Entities">
+    <EntitySetMapping Name="Dispositivo">
+      <EntityTypeMapping TypeName="Prueba3Model.Dispositivo">
+        <MappingFragment StoreEntitySet="Dispositivo">
+          <ScalarProperty Name="Clave_D" ColumnName="Clave_D" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Marca" ColumnName="Marca" />
+          <ScalarProperty Name="Modelo" ColumnName="Modelo" />
+          <ScalarProperty Name="Serie" ColumnName="Serie" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Movimiento">
+      <EntityTypeMapping TypeName="Prueba3Model.Movimiento">
+        <MappingFragment StoreEntitySet="Movimiento">
+          <ScalarProperty Name="Clave_M" ColumnName="Clave_M" />
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+          <ScalarProperty Name="Origen" ColumnName="Origen" />
+          <ScalarProperty Name="Destino" ColumnName="Destino" />
+          <ScalarProperty Name="Clave_R1" ColumnName="Clave_R1" />
+          <ScalarProperty Name="Clave_D1" ColumnName="Clave_D1" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Responsable">
+      <EntityTypeMapping TypeName="Prueba3Model.Responsable">
+        <MappingFragment StoreEntitySet="Responsable">
+          <ScalarProperty Name="Clave_R" ColumnName="Clave_R" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Cargo" ColumnName="Cargo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

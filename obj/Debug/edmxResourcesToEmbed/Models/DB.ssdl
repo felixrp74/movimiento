@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Prueba3Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Dispositivo">
+    <Key>
+      <PropertyRef Name="Clave_D" />
+    </Key>
+    <Property Name="Clave_D" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Descripcion" Type="varchar" MaxLength="10" />
+    <Property Name="Marca" Type="varchar" MaxLength="10" />
+    <Property Name="Modelo" Type="varchar" MaxLength="10" />
+    <Property Name="Serie" Type="varchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="Movimiento">
+    <Key>
+      <PropertyRef Name="Clave_M" />
+    </Key>
+    <Property Name="Clave_M" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Fecha" Type="datetime" />
+    <Property Name="Origen" Type="varchar" MaxLength="10" />
+    <Property Name="Destino" Type="varchar" MaxLength="10" />
+    <Property Name="Clave_R1" Type="int" />
+    <Property Name="Clave_D1" Type="int" />
+  </EntityType>
+  <EntityType Name="Responsable">
+    <Key>
+      <PropertyRef Name="Clave_R" />
+    </Key>
+    <Property Name="Clave_R" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="10" />
+    <Property Name="Cargo" Type="varchar" MaxLength="10" />
+  </EntityType>
+  <Association Name="fk_fD1">
+    <End Role="Dispositivo" Type="Self.Dispositivo" Multiplicity="0..1" />
+    <End Role="Movimiento" Type="Self.Movimiento" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Dispositivo">
+        <PropertyRef Name="Clave_D" />
+      </Principal>
+      <Dependent Role="Movimiento">
+        <PropertyRef Name="Clave_D1" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_fR1">
+    <End Role="Responsable" Type="Self.Responsable" Multiplicity="0..1" />
+    <End Role="Movimiento" Type="Self.Movimiento" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Responsable">
+        <PropertyRef Name="Clave_R" />
+      </Principal>
+      <Dependent Role="Movimiento">
+        <PropertyRef Name="Clave_R1" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Prueba3ModelStoreContainer">
+    <EntitySet Name="Dispositivo" EntityType="Self.Dispositivo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Movimiento" EntityType="Self.Movimiento" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Responsable" EntityType="Self.Responsable" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="fk_fD1" Association="Self.fk_fD1">
+      <End Role="Dispositivo" EntitySet="Dispositivo" />
+      <End Role="Movimiento" EntitySet="Movimiento" />
+    </AssociationSet>
+    <AssociationSet Name="fk_fR1" Association="Self.fk_fR1">
+      <End Role="Responsable" EntitySet="Responsable" />
+      <End Role="Movimiento" EntitySet="Movimiento" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

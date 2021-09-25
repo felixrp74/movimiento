@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Prueba3Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Dispositivo">
+    <Key>
+      <PropertyRef Name="Clave_D" />
+    </Key>
+    <Property Name="Clave_D" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Descripcion" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Marca" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Modelo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Serie" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Movimiento" Relationship="Self.fk_fD1" FromRole="Dispositivo" ToRole="Movimiento" />
+  </EntityType>
+  <EntityType Name="Movimiento">
+    <Key>
+      <PropertyRef Name="Clave_M" />
+    </Key>
+    <Property Name="Clave_M" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Fecha" Type="DateTime" Precision="3" />
+    <Property Name="Origen" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Destino" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Clave_R1" Type="Int32" />
+    <Property Name="Clave_D1" Type="Int32" />
+    <NavigationProperty Name="Dispositivo" Relationship="Self.fk_fD1" FromRole="Movimiento" ToRole="Dispositivo" />
+    <NavigationProperty Name="Responsable" Relationship="Self.fk_fR1" FromRole="Movimiento" ToRole="Responsable" />
+  </EntityType>
+  <EntityType Name="Responsable">
+    <Key>
+      <PropertyRef Name="Clave_R" />
+    </Key>
+    <Property Name="Clave_R" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Cargo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Movimiento" Relationship="Self.fk_fR1" FromRole="Responsable" ToRole="Movimiento" />
+  </EntityType>
+  <Association Name="fk_fD1">
+    <End Role="Dispositivo" Type="Self.Dispositivo" Multiplicity="0..1" />
+    <End Role="Movimiento" Type="Self.Movimiento" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Dispositivo">
+        <PropertyRef Name="Clave_D" />
+      </Principal>
+      <Dependent Role="Movimiento">
+        <PropertyRef Name="Clave_D1" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_fR1">
+    <End Role="Responsable" Type="Self.Responsable" Multiplicity="0..1" />
+    <End Role="Movimiento" Type="Self.Movimiento" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Responsable">
+        <PropertyRef Name="Clave_R" />
+      </Principal>
+      <Dependent Role="Movimiento">
+        <PropertyRef Name="Clave_R1" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Prueba3Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Dispositivo" EntityType="Self.Dispositivo" />
+    <EntitySet Name="Movimiento" EntityType="Self.Movimiento" />
+    <EntitySet Name="Responsable" EntityType="Self.Responsable" />
+    <AssociationSet Name="fk_fD1" Association="Self.fk_fD1">
+      <End Role="Dispositivo" EntitySet="Dispositivo" />
+      <End Role="Movimiento" EntitySet="Movimiento" />
+    </AssociationSet>
+    <AssociationSet Name="fk_fR1" Association="Self.fk_fR1">
+      <End Role="Responsable" EntitySet="Responsable" />
+      <End Role="Movimiento" EntitySet="Movimiento" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
